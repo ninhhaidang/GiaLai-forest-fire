@@ -59,4 +59,3 @@ Kết quả bao gồm:
 
 ## Tác giả
 - Ninh Hải Đăng
-- Lê Đức Lương
