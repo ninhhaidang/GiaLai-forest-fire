@@ -38,6 +38,20 @@ GiaLai-forest-fire/
 │                               # - Tạo ma trận nhầm lẫn và các biểu đồ so sánh
 │                               # - Xuất báo cáo tổng hợp
 ├── data/                       # Thư mục chứa dữ liệu (cần tạo thủ công)
+│   ├── gee-exported/           # Chứa các tệp CSV xuất từ GEE:
+│   │   └── GiaLai_Training_Data_For_Feature_Importance.csv (dữ liệu huấn luyện)
+│   │   └── GiaLai_Feature_Names.csv (tên các đặc trưng)
+│   │   └── GiaLai_Model_Evaluation_Metrics.csv (các chỉ số đánh giá từ GEE)
+│   │   └── Các tệp ảnh GeoTIFF (nếu có, ví dụ: bản đồ nguy cơ)
+│   └── results/                # Chứa kết quả từ script Python:
+│       └── GiaLai_RF_Feature_Importance.csv
+│       └── GiaLai_GTB_Feature_Importance.csv
+│       └── GiaLai_RF_Feature_Importance.png
+│       └── GiaLai_GTB_Feature_Importance.png
+│       └── GiaLai_RF_Confusion_Matrix.png
+│       └── GiaLai_GTB_Confusion_Matrix.png
+│       └── GiaLai_Feature_Importance_Comparison.png
+│       └── GiaLai_Model_Comparison_Report.txt (báo cáo tổng hợp)
 ├── .gitignore                  # Các tệp và thư mục được Git bỏ qua
 └── README.md                   # Tài liệu hướng dẫn chi tiết này
 ```
@@ -69,7 +83,7 @@ Dự án sử dụng 15 đặc trưng đầu vào được tính toán từ các
 
 ### 1. Quy trình xử lý dữ liệu trong Google Earth Engine
 
-Quy trình xử lý dữ liệu được thực hiện hoàn toàn trên nền tảng Google Earth Engine (GEE) để tận dụng khả năng tính toán song song và truy cập vào kho dữ liệu viễn thám khổng lồ:
+Quy trình xử lý dữ liệu được thực hiện trên nền tảng Google Earth Engine (GEE) để tận dụng khả năng tính toán song song và truy cập vào kho dữ liệu viễn thám khổng lồ:
 
 1.  **Thu thập dữ liệu**:
     *   Ảnh Sentinel-2 SR (Surface Reflectance) được lọc theo vùng nghiên cứu (ROI - tỉnh Gia Lai) và khoảng thời gian (mùa khô, ví dụ từ tháng 12 đến tháng 4 năm sau).
@@ -135,7 +149,7 @@ Dự án triển khai và so sánh hai mô hình học máy:
 
 ### Yêu cầu hệ thống
 
--   **Tài khoản Google Earth Engine**: Cần có tài khoản đã được phê duyệt để truy cập và chạy mã trên GEE.
+-   **Tài khoản Google Earth Engine**: Truy cập và chạy mã trên GEE.
 -   **Python**: Phiên bản 3.8 trở lên.
 -   **Thư viện Python**:
     ```bash
@@ -182,7 +196,7 @@ Dự án cung cấp một bộ kết quả toàn diện, bao gồm:
     *   Cấp 3: Trung bình (Cam) - Nguy cơ hiện hữu, cần chú ý.
     *   Cấp 4: Cao (Đỏ) - Nguy cơ cao, cần chuẩn bị các biện pháp phòng ngừa.
     *   Cấp 5: Rất cao/Nguy hiểm (Đỏ sẫm) - Nguy cơ cực kỳ cao, ưu tiên giám sát và sẵn sàng ứng phó.
-    *   *Ví dụ trực quan về bản đồ có thể được tìm thấy trong thư mục `data/results/example_maps/` (nếu bạn cung cấp).*
+    *   *Ví dụ trực quan về bản đồ có thể được tìm thấy trong thư mục `data/results/example_maps/`.*
 
 2.  **Phân tích chi tiết độ quan trọng của đặc trưng (Bảng CSV và Biểu đồ PNG)**:
     *   Xác định các yếu tố có ảnh hưởng lớn nhất đến nguy cơ cháy (ví dụ: LST, NDVI, độ ẩm, độ dốc).
@@ -190,7 +204,7 @@ Dự án cung cấp một bộ kết quả toàn diện, bao gồm:
 
 3.  **Đánh giá hiệu suất mô hình (Bảng CSV và Báo cáo TXT)**:
     *   Ma trận nhầm lẫn chi tiết cho từng mô hình.
-    *   Các chỉ số: Độ chính xác tổng thể (Overall Accuracy), Hệ số Kappa, Độ chính xác dương tính (Precision), Độ nhạy (Recall), Điểm F1 (F1-score).
+    *   Các chỉ số: Độ chính xác tổng thể (Overall Accuracy), Hệ số Kappa, Độ chính xác (Precision), Độ nhạy (Recall), Điểm F1 (F1-score).
     *   Kết quả kiểm định chéo (cross-validation) 5-fold để đánh giá tính ổn định của mô hình.
 
 4.  **Báo cáo tổng hợp (Tệp .txt)**:
@@ -221,28 +235,15 @@ Dự án cung cấp một bộ kết quả toàn diện, bao gồm:
     *   Áp dụng mô hình cho các tỉnh thành khác hoặc quy mô vùng lớn hơn.
     *   Bổ sung thêm các đặc trưng mới (ví dụ: loại hình sử dụng đất, mật độ dân số, khoảng cách đến đường giao thông, dữ liệu sét).
     *   Thử nghiệm các thuật toán học máy khác (ví dụ: Support Vector Machines, Neural Networks, XGBoost).
-    *   Phát triển giao diện người dùng web (web application) để người dùng cuối dễ dàng tương tác và xem kết quả.
     *   Hướng tới dự báo theo thời gian thực hoặc cận thời gian thực.
-
-## Đóng góp
-
-Chúng tôi hoan nghênh mọi sự đóng góp để cải thiện dự án này! Nếu bạn có ý tưởng, muốn báo lỗi hoặc đóng góp mã nguồn, vui lòng:
-
-1.  **Fork a repository**: Tạo một bản sao (fork) của repository này về tài khoản GitHub của bạn.
-2.  **Tạo một nhánh mới (New Branch)**: `git checkout -b feature/TenFeatureMoi` hoặc `bugfix/MoTaLoi`.
-3.  **Thực hiện thay đổi và commit**: `git commit -am 'Thêm tính năng X'` hoặc `git commit -am 'Sửa lỗi Y'`.
-4.  **Đẩy nhánh lên GitHub (Push to the branch)**: `git push origin feature/TenFeatureMoi`.
-5.  **Tạo Pull Request**: Mở một Pull Request từ nhánh của bạn sang nhánh `main` của repository gốc.
-
-Vui lòng đảm bảo mã nguồn của bạn tuân thủ các quy ước và có comment rõ ràng.
 
 ## Giấy phép
 
-Dự án này được cấp phép theo Giấy phép MIT. Xem chi tiết tại tệp `LICENSE` (nếu có, hoặc bạn có thể thêm một tệp LICENSE.md với nội dung giấy phép MIT).
+Dự án này được cấp phép theo Giấy phép MIT. Xem chi tiết tại tệp `LICENSE`.
 
 ## Liên hệ
 
-Ninh Hải Đăng - [ninhhaidang.fet@gmail.com](mailto:ninhhaidang.fet@gmail.com)
+Ninh Hải Đăng - [ninhhaidangg@gmail.com](mailto:ninhhaidangg@gmail.com)
 
 Link dự án: [https://github.com/ninhhaidang/GiaLai-forest-fire](https://github.com/ninhhaidang/GiaLai-forest-fire)
 
