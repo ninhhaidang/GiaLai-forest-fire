@@ -38,20 +38,6 @@ GiaLai-forest-fire/
 │                               # - Tạo ma trận nhầm lẫn và các biểu đồ so sánh
 │                               # - Xuất báo cáo tổng hợp
 ├── data/                       # Thư mục chứa dữ liệu (cần tạo thủ công)
-│   ├── gee-exported/           # Chứa các tệp CSV xuất từ GEE:
-│   │   └── GiaLai_Training_Data_For_Feature_Importance.csv (dữ liệu huấn luyện)
-│   │   └── GiaLai_Feature_Names.csv (tên các đặc trưng)
-│   │   └── GiaLai_Model_Evaluation_Metrics.csv (các chỉ số đánh giá từ GEE)
-│   │   └── Các tệp ảnh GeoTIFF (nếu có, ví dụ: bản đồ nguy cơ)
-│   └── results/                # Chứa kết quả từ script Python:
-│       └── GiaLai_RF_Feature_Importance.csv
-│       └── GiaLai_GTB_Feature_Importance.csv
-│       └── GiaLai_RF_Feature_Importance.png
-│       └── GiaLai_GTB_Feature_Importance.png
-│       └── GiaLai_RF_Confusion_Matrix.png
-│       └── GiaLai_GTB_Confusion_Matrix.png
-│       └── GiaLai_Feature_Importance_Comparison.png
-│       └── GiaLai_Model_Comparison_Report.txt (báo cáo tổng hợp)
 ├── .gitignore                  # Các tệp và thư mục được Git bỏ qua
 └── README.md                   # Tài liệu hướng dẫn chi tiết này
 ```
