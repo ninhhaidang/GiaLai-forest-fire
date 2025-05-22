@@ -1,0 +1,65 @@
+BÁO CÁO SO SÁNH MÔ HÌNH DỰ ĐOÁN NGUY CƠ CHÁY RỪNG TẠI GIA LAI
+==========================================================
+
+1. THÔNG TIN DỮ LIỆU
+-----------------
+Tổng số mẫu: 1353
+Số đặc trưng: 15
+Phân phối nhãn:
+- Không cháy (0): 667 mẫu (49.30%)
+- Cháy (1): 686 mẫu (50.70%)
+
+2. ĐÁNH GIÁ HIỆU SUẤT MÔ HÌNH
+--------------------------
+2.1. Random Forest
+- Độ chính xác (Accuracy): 0.9305
+- Độ chính xác dương tính (Precision): 0.9290
+- Độ nhạy (Recall): 0.9344
+- Điểm F1 (F1-score): 0.9317
+- Cross-validation (5-fold): 0.7517 ± 0.0157
+
+2.2. Gradient Boosting
+- Độ chính xác (Accuracy): 0.8381
+- Độ chính xác dương tính (Precision): 0.8369
+- Độ nhạy (Recall): 0.8455
+- Điểm F1 (F1-score): 0.8412
+- Cross-validation (5-fold): 0.7731 ± 0.0356
+
+3. TOP 10 ĐẶC TRƯNG QUAN TRỌNG NHẤT
+--------------------------------
+3.1. Random Forest
+- Temperature: 0.1227
+- DEM: 0.0909
+- Precipitation: 0.0844
+- WindSpeed: 0.0823
+- NBR: 0.0739
+- EVI: 0.0694
+- LSWI: 0.0671
+- NDWI: 0.0640
+- NDMI: 0.0578
+- TCI: 0.0562
+
+3.2. Gradient Boosting
+- Temperature: 0.2152
+- WindSpeed: 0.1500
+- Precipitation: 0.1392
+- DEM: 0.1173
+- EVI: 0.0746
+- TCI: 0.0677
+- NBR: 0.0614
+- LSWI: 0.0466
+- Aspect: 0.0463
+- NDMI: 0.0418
+
+4. NHẬN XÉT VÀ SO SÁNH
+---------------------
+- Về độ chính xác tổng thể, mô hình Random Forest cho kết quả tốt hơn.
+- Cả hai mô hình đều xác định các đặc trưng sau là quan trọng nhất: Temperature, WindSpeed, DEM, Precipitation.
+- Random Forest có ít trường hợp báo động giả (false positive) hơn.
+- Random Forest phát hiện cháy tốt hơn (ít false negative hơn).
+
+5. KẾT LUẬN
+---------
+- Dựa trên các chỉ số đánh giá và cross-validation, mô hình Gradient Boosting có vẻ phù hợp hơn cho dự đoán nguy cơ cháy rừng tại Gia Lai.
+
+Báo cáo được tạo tự động bằng Python.
